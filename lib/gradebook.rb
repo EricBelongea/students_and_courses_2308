@@ -29,6 +29,21 @@ class Gradebook
 
   def all_grades
     grades = {}
+    @courses.each do |course|
+      course.students.each do |student|
+        grades[course] ||= []
+        grades[course] += student.scores
+      end
+    end
+    grades
+  end
 
+  def students_in_range(min, max)
+    inrange =  @courses.map do |course|
+      course.students.select do |student|
+        student.grade >= min and student.grade <= max
+      end
+    end
+    inrange.flatten
   end
 end

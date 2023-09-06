@@ -63,7 +63,49 @@ RSpec.describe Gradebook do
     student2.log_score(85)
     student2.log_score(78)
     
-    # require'pry';binding.pry
     expect(gradebook.students_below(80)).to eq([student1])
+  end
+  
+  it 'will return all grades in a course' do
+    gradebook = Gradebook.new("Abdul", [])
+    course = Course.new("Calculus", 2)
+    student1 = Student.new({name: "Morgan", age: 21})
+    student2 = Student.new({name: "Jordan", age: 29})
+    
+    course.enroll(student1)
+    course.enroll(student2)
+    gradebook.add_course(course)
+    
+    student1.log_score(85)
+    student1.log_score(80)
+    student1.log_score(70)
+    
+    student2.log_score(99)
+    student2.log_score(85)
+    student2.log_score(78)
+    
+    # require'pry';binding.pry
+    expect(gradebook.all_grades).to eq({course =>[85, 80, 70, 99, 85, 78]})
+  end
+
+  it 'will select students in range' do
+    gradebook = Gradebook.new("Abdul", [])
+    course = Course.new("Calculus", 2)
+    student1 = Student.new({name: "Morgan", age: 21})
+    student2 = Student.new({name: "Jordan", age: 29})
+    
+    course.enroll(student1)
+    course.enroll(student2)
+    gradebook.add_course(course)
+    
+    student1.log_score(85)
+    student1.log_score(80)
+    student1.log_score(70)
+    
+    student2.log_score(99)
+    student2.log_score(85)
+    student2.log_score(78)
+
+    expect(gradebook.students_in_range(80, 90)).to eq([student2])
   end
 end
