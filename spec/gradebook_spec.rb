@@ -49,6 +49,8 @@ RSpec.describe Gradebook do
     gradebook.add_course(course)
 
     expect(gradebook.courses).to eq([course])
-    expect(gradebook.list_all_students).to eq([student1, student2])
+    # require'pry';binding.pry
+
+    expect(gradebook.list_all_students).to eq({course => [student1, student2]})
   end
 end
