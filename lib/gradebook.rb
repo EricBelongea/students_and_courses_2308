@@ -26,4 +26,9 @@ class Gradebook
     end
     insufficient.flatten
   end
+
+  def all_grades
+    grades = {}
+
+  end
 end

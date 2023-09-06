@@ -41,6 +41,8 @@ RSpec.describe Gradebook do
     expect(gradebook.courses).to eq([course])
     
     expect(gradebook.list_all_students).to eq({course => [student1, student2]})
+    expect(gradebook.list_all_students.keys).to eq([course])
+    expect(gradebook.list_all_students.values).to eq([[student1, student2]])
   end
   
   it 'will return students below threshold' do
@@ -63,6 +65,5 @@ RSpec.describe Gradebook do
     
     # require'pry';binding.pry
     expect(gradebook.students_below(80)).to eq([student1])
-
   end
 end
