@@ -17,16 +17,6 @@ RSpec.describe Gradebook do
     expect(gradebook.courses).to eq([])
   end
 
-  # it 'can hold courses' do
-  #   gradebook = Gradebook.new("Abdul", ["Ruby"])
-
-  #   expect(gradebook.courses).to eq(["Ruby"])
-
-  #   gradebook.add_course(["SQL"])
-
-  #   expect(gradebook.courses).to eq(["Ruby", "SQL"])
-  # end
-
   it 'can hold course objects' do
     gradebook = Gradebook.new("Abdul", [])
     course1 = Course.new("Calculus", 2)
@@ -49,8 +39,30 @@ RSpec.describe Gradebook do
     gradebook.add_course(course)
 
     expect(gradebook.courses).to eq([course])
-    # require'pry';binding.pry
-
+    
     expect(gradebook.list_all_students).to eq({course => [student1, student2]})
+  end
+  
+  it 'will return students below threshold' do
+    gradebook = Gradebook.new("Abdul", [])
+    course = Course.new("Calculus", 2)
+    student1 = Student.new({name: "Morgan", age: 21})
+    student2 = Student.new({name: "Jordan", age: 29})
+    
+    course.enroll(student1)
+    course.enroll(student2)
+    gradebook.add_course(course)
+    
+    student1.log_score(85)
+    student1.log_score(80)
+    student1.log_score(70)
+    
+    student2.log_score(99)
+    student2.log_score(85)
+    student2.log_score(78)
+    
+    # require'pry';binding.pry
+    expect(gradebook.students_below(80)).to eq([student1])
+
   end
 end

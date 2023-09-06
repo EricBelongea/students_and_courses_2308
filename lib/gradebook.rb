@@ -17,4 +17,13 @@ class Gradebook
     end
     student_list
   end
+
+  def students_below(threshold)
+    insufficient = @courses.map do |course|
+      course.students.select do |student|
+        student.grade < threshold
+      end
+    end
+    insufficient.flatten
+  end
 end
